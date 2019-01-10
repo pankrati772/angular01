@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>购物车</title>
+	<script src="./angular.min.js"></script>
+</head>
+<style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+		list-style:none;
+	}
+	a{
+		text-decoration: none;
+	}
+	/*购物车图标*/
+	.cat{
+		position: fixed;
+		top:50px;
+		right: 50px;
+		height: 100px;
+		width:100px;
+	}
+	.cat img{
+		width:100%;
+	}
+	.cat .num{
+		width:20px;
+		height: 20px;
+		background: red;
+		color:#fff;
+		text-align:center;
+	    line-height: 20px;
+	    border-top-left-radius: 50%;
+	    border-top-right-radius: 50%;
+		border-bottom-right-radius: 50%;
+		font-family: '楷体';
+		position: absolute;
+		top:-5px;right: 0;
+		font-size: 14px;
+		font-weight: bold;
+	}
+	/*购物车列表*/
+		.catGoods{width:960px;margin: 100px auto;}
+		.catGoods table{width:100%;}
+		.catGoods table thead td{height: 50px;background: #333;color:#fff;text-align: center;}
+		.catGoods table thead td.img{width:100px;}
+		.catGoods table tbody td{text-align: center;border-top:1px solid #ccc;}
+		.catGoods table img{width:100px;height: 100px;}
+		.catGoods .goodsNum{width: 100px;}
+		.catGoods .goodsNum div{width:100px;border:1px solid #333;height: 30px;}
+		.catGoods .goodsNum div input{width:40px;height:30px;float: left;border:none;
+		text-align: center;font-size: 18px;}
+		.catGoods .goodsNum div button{width:30px;height:30px;float: left;border:none;
+		background: #333;color:#fff;font-size: 20px;}
+
+
+	/*产品列表*/
+	  .goods{
+	  	width:960px;
+	  	margin:0 auto;
+	  }
+	  .goods h2{
+	  	text-align: center;
+	  	color:#0f0;
+	  	line-height: 100px;
+	  }
+	  .goods ul{
+	  	overflow:hidden;
+	  }
+	  .goods ul li {
+	  	width:25%;
+	  	float: left;
+	  	margin-top:20px;
+	  }
+	  .goods img{
+	  	width:80%;
+	  	display: block;
+	  	margin:10px auto;
+	  }
+	  .good .name{
+	  	text-align: center;
+	  	line-height: 30px;
+	  	font-size: 18px;
+	  	color:#333;
+	  }
+</style>
+<body ng-app='app'>
+	<div ng-controller="myc">
+		<!-- 购物车图标 -->
+		<div class="cat">
+			<img src="images/cat.gif">
+			<div class="num">{{getCatNum()}}</div>
+		</div>
+
+
+		<!-- 商品列表 -->
+		<div class="goods">
+			<h2>商品列表</h2>
+			<ul>
+				<li ng-repeat="(key, value) in goods">
+					<img ng-src="{{value.imgurl}}">
+					<div class="name">{{value.name}}</div>
+					<div class="price">
+						{{value.price|currency:'￥'}}
+					</div>
+					<button ng-click='addCat(value.id)'>加入购物车</button>
+				</li>
+			</ul>
+		</div>
+
+		<!-- 购物车列表 -->
+		<div class="catGoods">
+			
+			<table cellpadding="0" cellspacing="0">
+				<thead>
+					<tr>
+						<td class="img">图片</td>
+						<td>名称</td>
+						<td>单价</td>
+						<td>数量</td>
+						<td>小计</td>
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tr ng-repeat="(key, val) in catGoods">
+					<td><img ng-src="{{val.imgurl}}" alt=""></td>
+					<td>{{val.name}}</td>
+					<td>{{val.price|currency:'￥'}}</td>
+					<td class="goodsNum">
+						<div>
+							<button ng-click="jian(val.id)">-</button>						
+							<input type="text" ng-model="val.num">
+							<button ng-click="add(val.id)">+</button>						
+						</div>
+					</td>
+					<td>{{val.num*val.price|currency:'￥'}}</td>
+					<td><button>删除</button></td>
+				</tr>
+				<tfoot>
+					<tr>
+						<td>订单信息</td>
+						<td>
+							订单的总价：
+							<span></span>
+							商品总数量：
+							<span>{{getCatNum()}}</span>
+						</td>
+					</tr>
+				</tfoot>	
+			</table>
+		</div>
+	</div>
+<script>
+	let app = angular.module('app',[],function(){
+		
+	});
+	app.controller('myc', function($scope){
+		// 购物车商品数据
+			$scope.goods = [
+				{id:21,name:'榴莲',price:18,imgurl:'./images/1.jpg'},
+				{id:32,name:'苹果',price:18,imgurl:'./images/2.jpg'},
+				{id:3,name:'榴莲苹果',price:18,imgurl:'./images/3.jpg'},
+				{id:64,name:'西瓜',price:18,imgurl:'./images/4.jpg'},
+				{id:15,name:'黄瓜',price:18,imgurl:'./images/5.jpg'},
+				{id:6,name:'冬瓜',price:18,imgurl:'./images/6.jpg'},
+				{id:17,name:'南瓜',price:18,imgurl:'./images/7.jpg'},
+				{id:8,name:'北瓜',price:18,imgurl:'./images/8.jpg'},
+				{id:9,name:'木瓜',price:18,imgurl:'./images/9.jpg'},
+				{id:10,name:'苦瓜',price:18,imgurl:'./images/10.jpg'},
+			];
+
+			// 购物车里的商品
+			$scope.catGoods={};
+
+			// 添加商品到购物车
+			$scope.addCat = function(id){
+				// 根据id 获取一条数据在购物车数组里的索引
+				var index = getArrayIndex(id,$scope.goods);
+				$scope.catGoods['c'+index] = $scope.goods[index];
+
+				// 判断该商品是否第一次加到购物车
+				if($scope.catGoods['c'+index].num == undefined){
+					// 该商品不是第一次加到购物车 把 产品数量的num ==1
+					$scope.catGoods['c'+index].num = 1;
+				}else{
+					// 购物车信息里之前有该商品信息，把产品数量num++
+					$scope.catGoods['c'+index].num++;
+				}
+
+
+				console.log($scope.catGoods)
+			}
+
+
+			// 根据id获取一条数据 在购物车数组的索引
+			function getArrayIndex(id,arr){
+				var index = 0;
+				angular.forEach(arr, function(value, key){
+					if(id==value.id) index = key;
+				});
+				return index;
+			}
+
+			// 获取购物车里的产品数量
+			$scope.getCatNum = function(){
+				let num= 0;
+				// 循环购物车里所有产品的信息
+				angular.forEach($scope.catGoods, function(item){
+					num+=item.num;
+					// console.log(item)
+				});
+				return num;
+			}
+
+
+
+			// 购物车商品+1
+			$scope.add = function(id){
+				var index = getArrayIndex(id,$scope.catGoods);
+				$scope.catGoods[index].num++;
+			}
+			// 购物车商品-1
+			$scope.jian = function(id){
+				var index = getArrayIndex(id,$scope.catGoods);
+				if($scope.catGoods[index].num<=1){
+					alert('不能减啦')
+				}else{
+					 $scope.catGoods[index].num--;
+				}
+			}
+	})
+</script>
+
+</body>
+</html>

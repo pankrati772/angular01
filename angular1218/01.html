@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="./angular.min.js"></script>
+</head>
+<body ng-app='app'>
+	<div ng-controller="myc">
+		
+	</div>
+<script>
+	let app = angular.module('app',[],function(){
+		$provide.provider('hello',function(){
+			this.$get=function(){
+				return {mesg:'hello'}
+			}
+		})
+	});
+	app.controller('myc', function($scope){
+		
+	})
+</script>
+
+</body>
+</html>

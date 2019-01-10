@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>angular</title>
+	<script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<style type="text/css">
+	.first{color:red;}
+</style>
+<body ng-app="app">
+	<div ng-controller="mycontroller" >
+		<table>
+			<tr ng-repeat="(key, value) in user" class="{{$first?'first':''}}">
+				<td>{{value.id}}</td>
+				<td>{{value.name}}</td>
+				<!-- <td>{{key+1}}</td> -->
+				<td>{{value.age}}</td>
+				<td>{{value.gun}}</td>
+				<td>{{value.sex?'男':'女'}}</td>
+			</tr>
+		</table>
+	</div>
+	<script>
+		let app = angular.module('app', []);
+		app.controller('mycontroller',  function($scope){
+			// 绑定变量
+			$scope.user=[
+				{id:001,name:'杨家伟',age:18,gun:'m4a1',sex:1},
+				{id:002,name:'许泳锋',age:18,gun:'akm',sex:0},
+				{id:003,name:'杨伟鹏',age:18,gun:'m4a1',sex:1},
+				{id:004,name:'李煜彬',age:18,gun:'m4a1',sex:1},
+				{id:005,name:'歪污污',age:18,gun:'m762',sex:1},
+			]
+		})
+	</script>
+</body>
+</html>

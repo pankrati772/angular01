@@ -1,0 +1,36 @@
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app='app'>
+    <div ng-controller="mycontroller">
+		<table>
+			<tr ng-repeat="(key, value) in user">
+				<td>{{key+1}}</td>
+				<td>{{value.name}}</td>
+				<td>{{value.id}}</td>
+				<td>{{value.sex?'男':'女'}}</td>
+				<!-- <td></td> -->
+			</tr>
+		</table>
+	</div>
+
+<script>
+    let app = angular.module('app', []);
+    app.controller('mycontroller',function($scope){
+        $scope.user=[
+			{id:9872,name:'呆逼',sex:0},
+			{id:5555,name:'呆逼1',sex:1},
+			{id:3695,name:'呆逼2',sex:1},
+			{id:8426,name:'呆逼3',sex:0},
+		]
+
+    
+    })
+</script>
+</body>
+</html>

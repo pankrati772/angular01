@@ -1,0 +1,25 @@
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app='app'>
+    <div ng-controller="mycontroller">
+		<h1>{{time}}</h1>
+	</div>
+
+<script>
+    let app = angular.module('app', []);
+    app.controller('mycontroller',function($scope){
+       setInterval(function(){
+           $scope.$apply(function(){
+               $scope.time=new Date().getTime()
+           })
+       })
+    })
+</script>
+</body>
+</html>

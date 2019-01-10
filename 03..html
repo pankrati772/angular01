@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>angular</title>
+	<script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app="app">
+	<div ng-controller="mycontroller" >
+		<h1>{{time}}</h1>
+	</div>
+	<script>
+		let app = angular.module('app', []);
+		app.controller('mycontroller',  function($scope){
+			setInterval(function(){
+				$scope.$apply(function(){
+					$scope.time= new Date().getTime();
+				})
+			},200)
+		})
+	</script>
+</body>
+</html>

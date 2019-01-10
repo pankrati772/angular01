@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>angular</title>
+	<script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app="app">
+	<div ng-controller="mycontroller" >
+		<input type="text" ng-model='mesg' name="">
+	</div>
+	<script>
+		let app = angular.module('app', []);
+		app.controller('mycontroller',  function($scope){
+			// 绑定 变量
+			$scope.mesg='hello world';
+			// 监听变量
+			$scope.$watch('mesg', function(newValue, oldValue, scope) {
+				console.log('mesg 变量发生改变');
+				console.log('修改前的参数'+oldValue);
+				console.log('修改后的参数'+newValue);
+				document.bgColor=newValue;
+			});
+		})
+	</script>
+</body>
+</html>

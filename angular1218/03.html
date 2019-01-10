@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>过滤器</title>
+	<script src="./angular.min.js"></script>
+</head>
+<style type="text/css">
+	ul{list-style: none;line-height: 30px;}
+	.title{color:red;font-weight: bold;margin-top: 5px;}
+</style>
+<body ng-app='app'>
+	<div ng-controller="myc">
+		<ul>
+			<li>{{city}}</li>
+			<li class="title">所有有海的子集</li>
+			<li>{{city|filter:'海'}}</li>
+			<li class="title">城市名中带海</li>
+			<li>{{ city | filter:{name:'海'} }}</li>
+			<!-- <li>{{ city | filter:{name:'海'} }}</li> -->
+
+			<li class="title">排序</li>
+			<li>{{city | orderBy:'order'}}</li>
+			<li>{{city | orderBy}}</li>
+		</ul>
+	</div>
+<script>
+	let app = angular.module('app',[],function(){
+		
+	});
+	app.controller('myc', function($scope){
+		$scope.city = [
+				{id:1,name:'北京',info:'北京烤鸭',order:1},
+				{id:2,name:'广州',info:'温泉',order:2},
+				{id:3,name:'上海',info:'东方明珠',order:3},
+				{id:4,name:'林芝',info:'好牛逼啊',order:4},
+				{id:5,name:'厦门',info:'厦门的海',order:6},
+				{id:6,name:'安徽',info:'山',order:0},
+			]
+	})
+</script>
+
+</body>
+</html>

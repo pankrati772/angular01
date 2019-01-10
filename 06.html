@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>angular</title>
+	<script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<style type="text/css">
+	.box{
+		width:50px;
+		height: 50px;
+		background: red
+	}
+</style>
+<body ng-app="app">
+	<div ng-controller="mycontroller" >
+		<button ng-click="test()">测试</button>
+		<div class="box" ng-mouseover="mymouseover()"></div>
+	</div>
+	<script>
+		let app = angular.module('app', []);
+		app.controller('mycontroller',  function($scope){
+			$scope.name='jack'
+			$scope.test=function(){
+				alert($scope.name)
+			}
+			$scope.mymouseover = function(){
+				alert();
+			}
+		})
+	</script>
+</body>
+</html>

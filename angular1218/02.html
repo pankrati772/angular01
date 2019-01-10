@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>过滤器</title>
+	<script src="./angular.min.js"></script>
+</head>
+<style type="text/css">
+	ul{
+		list-style: none;
+		line-height: 30px;
+	}
+	.title{
+		color:red;
+		font-weight: bold;
+		margin-top: 5px;
+	}
+</style>
+<body ng-app='app'>
+	<div ng-controller="myc">
+		<ul>
+			<li class="title">数字相关的过滤器</li>
+			<li>{{1231313}}</li>
+			<li>{{1231313|number}}</li>
+			<li>{{1231313|number:3}}</li>
+			<!-- number后面的值是过滤后小数的位数 -->
+		</ul>
+		<ul>
+			<li class="title">货币相关的过滤器</li>
+			<li>{{8848|currency}}</li>
+			<li>{{8848|currency:"￥"}}</li>
+		</ul>
+		<ul>
+			<li class="title">日期过滤器</li>
+			<li>{{time}}</li>
+			<li>{{time|date}}</li>
+
+			<li class="title">年</li>
+			<li>{{time|date:'y'}}</li>
+			<li>{{time|date:'yyyy'}}</li>
+			<li>{{time|date:'yy'}}</li>
+			<li class="title">月</li>
+			<li>{{time|date:'M'}}</li>
+			<li>{{time|date:'MM'}}</li>
+			<li>{{time|date:'MMM'}}</li>
+			<li>{{time|date:'MMMM'}}</li>
+			<li class="title">日</li>
+			<li>{{time|date:'d'}}</li>
+			<li>{{time|date:'dd'}}</li>
+			<li class="title">时</li>
+			<!-- h 表示12进制 -->
+			<li>{{time|date:'h'}}</li>
+			<li>{{time|date:'hh'}}</li>
+			<!-- H 表示24进制 -->
+			<li>{{time|date:'H'}}</li>
+			<li>{{time|date:'HH'}}</li>
+			<li class="title">分</li>
+			<li>{{time|date:'m'}}</li>
+			<li>{{time|date:'mm'}}</li>
+			<li class="title">秒</li>
+			<li>{{time|date:'s'}}</li>
+
+			<li class="title">完整时间格式</li>
+			<li>{{time|date:'y-MM-dd HH:mm:ss'}}</li>
+			<li>{{time|date:'y/MM/dd HH:mm:ss'}}</li>
+		</ul>
+	</div>
+<script>
+	let app = angular.module('app',[],function(){
+		
+	});
+	app.controller('myc', function($scope){
+		$scope.time = new Date().getTime();
+	})
+</script>
+
+</body>
+</html>
