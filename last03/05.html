@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../../lib/react.js"></script>
+	<script src="../../lib/react-dom.js"></script>
+</head>
+<body>
+	<div id="container"></div>
+	<script>
+		
+		// 声明一个组件
+		var HelloComponent = React.createClass({
+			render:function(){
+				return React.createElement('h1',null,'hello world');
+			}
+		})
+
+		// 渲染 DOM
+		ReactDOM.render(
+			React.createElement(HelloComponent,null),
+			document.getElementById('container')
+		);
+
+	</script>
+		
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>React 实例</title>
+  <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+  <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+  <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+
+<div id="example"></div>
+<script type="text/babel">
+  class Toggle extends React.Component {
+
+
+    // 事件处理程序
+    handleClick() {
+      alert('哈哈，被你调用啦');
+    }
+  
+    // dom
+    render() {
+      return (
+        <button onClick={this.handleClick}>
+         按钮
+        </button>
+      );
+    }
+  }
+  
+  // 渲染 DOM
+  ReactDOM.render(
+    <Toggle />,
+    document.getElementById('example')
+  );
+</script>
+
+</body>
+</html>
